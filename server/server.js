@@ -1,4 +1,5 @@
 //Import the libraries - express - mongoose - cors
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 //connect to mongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/studentinfo")
+mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("MongoDb is Connected....."))
 .catch(err => console.error(err))
 
@@ -41,6 +42,7 @@ app.delete("/:id",async(req,res) => {
 });
 
 //Connection
-app.listen(5000, () =>{
+const PORT = process.env.PROT || 5000;
+app.listen(PORT , () =>{
     console.log("Server is running on http://localhost:5000");
 });
